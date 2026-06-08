@@ -5,33 +5,36 @@ export interface NavItem {
   icon: string
   section: string
   badgeKey?: string
+  path: string
 }
-
 export const NAV_ITEMS: NavItem[] = [
   // Insights
-  { id: 'insights', label: 'Dashboard', icon: 'BarChart2', section: 'Insights' },
-  { id: 'monitoring', label: 'Monitoring & Alerts', icon: 'Bell', section: 'Insights', badgeKey: 'alerts' },
-  { id: 'askai', label: 'Ask AI', icon: 'Sparkles', section: 'Insights' },
-  { id: 'datacards', label: 'Data Cards', icon: 'CreditCard', section: 'Insights' },
-  // Data
-  { id: 'tenants', label: 'Tenants & Privacy', icon: 'Building2', section: 'Data', badgeKey: 'tenants' },
-  { id: 'dataconnectors', label: 'Data Connectors', icon: 'Plug', section: 'Data', badgeKey: 'sources' },
-  { id: 'datamanagement', label: 'Data Management', icon: 'Settings', section: 'Data' },
-  { id: 'catalog', label: 'Catalog & Lineage', icon: 'BookOpen', section: 'Data' },
-  { id: 'featurestore', label: 'Feature Store', icon: 'Dice6', section: 'Data' },
-  // AI & ML
-  { id: 'labeling', label: 'Data Labeling', icon: 'Tags', section: 'AI & ML' },
-  { id: 'training', label: 'Training & Experiments', icon: 'Rocket', section: 'AI & ML' },
-  { id: 'models', label: 'Models & Governance', icon: 'Bot', section: 'AI & ML' },
-  { id: 'federated', label: 'Federated & Decentralized', icon: 'Globe', section: 'AI & ML' },
-  // Platform
-  { id: 'operations', label: 'Operations', icon: 'Zap', section: 'Platform' },
-  { id: 'developer', label: 'Developer & Marketplace', icon: 'Monitor', section: 'Platform' },
-  { id: 'infra', label: 'Infrastructure', icon: 'Cloud', section: 'Platform' },
-  // Team
-  { id: 'teamusers', label: 'Team & Users', icon: 'Users', section: 'Team' },
-]
+  { id: 'insights', label: 'Dashboard', icon: 'BarChart2', section: 'Insights', path: '/' },
+  { id: 'monitoring', label: 'Monitoring & Alerts', icon: 'Bell', section: 'Insights', path: '/monitoring', badgeKey: 'alerts' },
+  { id: 'askai', label: 'Ask AI', icon: 'Sparkles', section: 'Insights', path: '/askai' },
+  { id: 'datacards', label: 'Data Cards', icon: 'CreditCard', section: 'Insights', path: '/datacards' },
 
+  // Data
+  // { id: 'tenants', label: 'Tenants & Privacy', icon: 'Building2', section: 'Data', path: '/tenants', badgeKey: 'tenants' },
+  // { id: 'dataconnectors', label: 'Data Connectors', icon: 'Plug', section: 'Data', path: '/dataconnectors', badgeKey: 'sources' },
+  // { id: 'datamanagement', label: 'Data Management', icon: 'Settings', section: 'Data', path: '/datamanagement' },
+  // { id: 'catalog', label: 'Catalog & Lineage', icon: 'BookOpen', section: 'Data', path: '/catalog' },
+  // { id: 'featurestore', label: 'Feature Store', icon: 'Dice6', section: 'Data', path: '/featurestore' },
+
+  // // AI & ML
+  // { id: 'labeling', label: 'Data Labeling', icon: 'Tags', section: 'AI & ML', path: '/labeling' },
+  // { id: 'training', label: 'Training & Experiments', icon: 'Rocket', section: 'AI & ML', path: '/training' },
+  // { id: 'models', label: 'Models & Governance', icon: 'Bot', section: 'AI & ML', path: '/models' },
+  // { id: 'federated', label: 'Federated & Decentralized', icon: 'Globe', section: 'AI & ML', path: '/federated' },
+
+  // // Platform
+  // { id: 'operations', label: 'Operations', icon: 'Zap', section: 'Platform', path: '/operations' },
+  // { id: 'developer', label: 'Developer & Marketplace', icon: 'Monitor', section: 'Platform', path: '/developer' },
+  // { id: 'infra', label: 'Infrastructure', icon: 'Cloud', section: 'Platform', path: '/infra' },
+
+  // Team
+  // { id: 'teamusers', label: 'Team & Users', icon: 'Users', section: 'Team', path: '/teamusers' },
+]
 export const SCREEN_TITLES: Record<string, string> = {
   insights: 'Dashboard',
   monitoring: 'Monitoring & Alerts',

@@ -1,21 +1,25 @@
 import { Diamond, ChevronUp } from 'lucide-react'
-import { useAppDispatch, useAppSelector } from '@/app/hooks'
-import { setScreen } from '@/app/slices/uiSlice'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useAppSelector } from '@/app/hooks'
 import { NAV_ITEMS } from '@/lib/constants'
 import SidebarSection from './SidebarSection'
 import SidebarItem from './SidebarItem'
 
 export default function Sidebar() {
-  const dispatch = useAppDispatch()
-  const activeScreen = useAppSelector((s) => s.ui.activeScreen)
-  const currentUser = useAppSelector((s) => s.auth.currentUser)
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  const currentUser = useAppSelector((s) => s.auth.user)
   const unreadCount = useAppSelector((s) => s.notifications.unreadCount)
 
-  const handleNav = (id: string) => {
-    dispatch(setScreen(id))
+  // current path (for active state)
+  const activePath = location.pathname
+
+  const handleNav = (path: string) => {
+    navigate(path)
   }
 
-  // Group nav items by section
+  // group sections
   const sections: string[] = []
   NAV_ITEMS.forEach((item) => {
     if (!sections.includes(item.section)) sections.push(item.section)
@@ -29,6 +33,7 @@ export default function Sidebar() {
 
   return (
     <nav className="sidebar" aria-label="Main navigation">
+
       {/* Logo */}
       <div className="sidebar-logo">
         <Diamond size={18} aria-hidden="true" />
@@ -46,43 +51,48 @@ export default function Sidebar() {
         </small>
       </div>
 
-      {/* Navigation sections */}
+      {/* Navigation */}
       {sections.map((section) => (
         <div key={section}>
           <SidebarSection label={section} />
+
           {NAV_ITEMS.filter((item) => item.section === section).map((item) => (
             <SidebarItem
               key={item.id}
               id={item.id}
               label={item.label}
               iconName={item.icon}
-              isActive={activeScreen === item.id}
               badge={getBadge(item.badgeKey)}
-              onClick={handleNav}
+              onClick={() => handleNav(item.path)} // ✅ IMPORTANT CHANGE
+              isActive={activePath === item.path}   // ✅ URL-based active state
             />
           ))}
         </div>
       ))}
 
-      {/* User profile */}
+      {/* User */}
       <div className="sidebar-bottom">
         <div className="sidebar-user">
           <div
             className="sidebar-avatar"
-            style={{ background: currentUser.color, color: '#fff' }}
-            aria-hidden="true"
+            style={{
+              background: currentUser?.color || '#333',
+              color: '#fff',
+            }}
           >
-            {currentUser.initials}
+            {currentUser?.initials}
           </div>
+
           <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontSize: 'var(--text-sm)', fontWeight: 500, color: 'var(--text)' }} className="truncate">
-              {currentUser.name}
+            <div className="truncate" style={{ fontWeight: 500 }}>
+              {currentUser?.name}
             </div>
-            <div style={{ fontSize: 'var(--text-xs)', color: 'var(--text3)' }} className="truncate">
-              {currentUser.role}
+            <div className="truncate" style={{ fontSize: 'var(--text-xs)' }}>
+              {currentUser?.role}
             </div>
           </div>
-          <ChevronUp size={12} style={{ color: 'var(--text3)', flexShrink: 0 }} aria-hidden="true" />
+
+          <ChevronUp size={12} style={{ color: 'var(--text3)' }} />
         </div>
       </div>
     </nav>
